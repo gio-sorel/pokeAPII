@@ -10,40 +10,47 @@ async function getPokemonData(param) {
 
         displayPokemonCard(data);
     } catch (error){
-        console.log("Error al obtener datos: ", error);
+        log("Error al obtener datos: ", error);
     }
 }
 
 function displayPokemonCard(data) {
-    const displayPokemonConteiner = document.getElementById("pokemonCardContainer");
+    const PokemonConteiner = document.getElementById("pokemonCardContainer");
 
 
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add("pokemon-card");
 
-    const pokemonName = document.createElement("h3");
-    pokemonName.classList.add = data.name;
+    const pokemonImage = document.createElement("img");
+    pokemonImage.src=data.sprites.front_default;
 
-    const pokemonType = document.createElement("p");
+    const pokemonName = document.createElement("h2");
+    pokemonName.textContent = data.name;
+
+    const pokemonAbilities = document.createElement("p");
+    pokemonAbilities.textContent = `Abilities: ${data.abilities.map(ability => ability.ability.name).join(", ")}`;
+
+    const pokemonTypes = document.createElement("p");
     pokemonCard.classList.add = `Types: ${data.types.map(type=>type.type.name).join(", ")}`;
 
     //Elementos
     pokemonCard.appendChild(pokemonImage);
     pokemonCard.appendChild(pokemonName);
-    pokemonCard.appendChild(pokemonType);
+    pokemonCard.appendChild(pokemonAbilities);
+    pokemonCard.appendChild(pokemonTypes);
 
-    pokemoncardConteiner.innerHTML = "";
-    pokemoncardConteiner.appendChild(pokemonCard);
+    PokemonConteiner.innerHTML = "";
+    PokemonConteiner.appendChild(pokemonCard);
 }
 
 
 
-function searchrandomPokemon() {
-    const randomID = Math.floor(Math.random() * 150) + 1;
-    getPokemonData(randomID);
+function searchRandomPokemon() {
+    const randomId = Math.floor(Math.random() * 150) + 1;
+    getPokemonData(randomId);
 }
 
-function searchrandomByName() {
+function searchPokemonByName() {
     const pokemonName = document.getElementById("pokemonNameInput").value;
-    getPokemonData(randomName);
+    getPokemonData(pokemonName);
 }
